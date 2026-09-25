@@ -1,0 +1,600 @@
+{
+  "author": "Yuval Kolodkin-Gal",
+  "method": "Local photographic processing; original scene preserved",
+  "wallpapers": [
+    {
+      "slug": "butterfly-in-gold",
+      "title": "Butterfly in Gold",
+      "theme": "canopy",
+      "description": "An orange butterfly among pale leaves and deep green shade.",
+      "source": {
+        "collection": "pictures",
+        "file": "Best Pics/RAW/IMG_2556.JPG",
+        "sha256": "4038429c33cf68d322a6fea3aa96a0de0c1426f97f5be19e139315db0e0b0f54",
+        "width": 4000,
+        "height": 2248
+      },
+      "crop_px": [
+        8,
+        3,
+        3992,
+        2244
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": 0.06,
+        "shadow_lift": 0.13,
+        "highlight_compression": 0.2,
+        "contrast": 0.3,
+        "saturation": 1.12
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "fig-thief",
+      "title": "Fig Thief",
+      "theme": "canopy",
+      "description": "A parakeet tucked into the green light of a fig tree.",
+      "source": {
+        "collection": "pictures",
+        "file": "Best Pics/RAW/IMG_2573.JPG",
+        "sha256": "22c4654b1db6c8530982110482b21c4b159e1f23fe06fc0a48e4f57b3e6377ab",
+        "width": 4000,
+        "height": 2248
+      },
+      "crop_px": [
+        8,
+        3,
+        3992,
+        2244
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1.025,
+          1,
+          0.985
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": 0.06,
+        "shadow_lift": 0.32,
+        "highlight_compression": 0.28,
+        "contrast": 0.2,
+        "saturation": 1.07
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "porcelain-petals",
+      "title": "Porcelain Petals",
+      "theme": "canopy",
+      "description": "Pale blue flowers against shaded leaves.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2554.JPG",
+        "sha256": "27434465e860409e6bc9b15f4a34d5a62797dbe49a0075ce1062b7132ff90c3a",
+        "width": 4000,
+        "height": 2248
+      },
+      "crop_px": [
+        8,
+        3,
+        3992,
+        2244
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": -0.12,
+        "shadow_lift": 0.08,
+        "highlight_compression": 0.3,
+        "contrast": 0.26,
+        "saturation": 1.04
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "hoopoe-in-the-grass",
+      "title": "Hoopoe in the Grass",
+      "theme": "canopy",
+      "description": "A low view of a hoopoe framed by fine blades of grass.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2602.JPG",
+        "sha256": "19166c50898eb4df9ef8759bac81153818e371ae9ebadc943bd56b0dfa9b8a44",
+        "width": 4000,
+        "height": 2248
+      },
+      "crop_px": [
+        8,
+        3,
+        3992,
+        2244
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": 0.02,
+        "shadow_lift": 0.22,
+        "highlight_compression": 0.18,
+        "contrast": 0.26,
+        "saturation": 1.02
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "canopy-light",
+      "title": "Canopy Light",
+      "theme": "canopy",
+      "description": "Sunlight tracing the veins of broad leaves.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2605.JPG",
+        "sha256": "6d032c8299a4bcd13675e7cd17d7697c9a406e948b93fa67a4882eefa45d4e76",
+        "width": 4000,
+        "height": 2248
+      },
+      "crop_px": [
+        8,
+        3,
+        3992,
+        2244
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": -0.08,
+        "shadow_lift": 0.1,
+        "highlight_compression": 0.3,
+        "contrast": 0.3,
+        "saturation": 1.06
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "a-place-to-pause",
+      "title": "A Place to Pause",
+      "theme": "canopy",
+      "description": "Two wooden chairs on a quiet garden path.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2621.JPG",
+        "sha256": "8e7f85cdd759060b0c22536fa2be18567d180431413ace0e1ef0b845c5c4a84a",
+        "width": 4000,
+        "height": 2248
+      },
+      "crop_px": [
+        8,
+        3,
+        3992,
+        2244
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1.025,
+          1,
+          0.975
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": 0.05,
+        "shadow_lift": 0.26,
+        "highlight_compression": 0.3,
+        "contrast": 0.2,
+        "saturation": 1.04
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "garden-nap",
+      "title": "Garden Nap",
+      "theme": "canopy",
+      "description": "A resting tabby surrounded by tall leaves.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2596.JPG",
+        "sha256": "8cdc4df26a9b4f8e7c2ad5554e7cda7732abf9565c8e7e8730639ed429d4bfe4",
+        "width": 4000,
+        "height": 2248
+      },
+      "crop_px": [
+        8,
+        3,
+        3992,
+        2244
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": -0.06,
+        "shadow_lift": 0.12,
+        "highlight_compression": 0.23,
+        "contrast": 0.4,
+        "saturation": 1.07
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "violet-water",
+      "title": "Violet Water",
+      "theme": "lagoon",
+      "description": "Violet flower spikes above green water and bright leaves.",
+      "source": {
+        "collection": "pictures",
+        "file": "Best Pics/RAW/IMG_2585.JPG",
+        "sha256": "83f010acaadac0b7dcb37fe8051b3e2ada91e198864444204afea790032299d5",
+        "width": 4000,
+        "height": 2248
+      },
+      "crop_px": [
+        8,
+        3,
+        3992,
+        2244
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": -0.07,
+        "shadow_lift": 0.08,
+        "highlight_compression": 0.24,
+        "contrast": 0.2,
+        "saturation": 1.04
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "quiet-water",
+      "title": "Quiet Water",
+      "theme": "lagoon",
+      "description": "A white egret standing in rippled olive water.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2588.JPG",
+        "sha256": "ce1cca2071bf9ae3a469492c891e37df93b2446dfcae19d535c4f00557ead0a0",
+        "width": 4000,
+        "height": 2248
+      },
+      "crop_px": [
+        8,
+        3,
+        3992,
+        2244
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": -0.09,
+        "shadow_lift": 0.1,
+        "highlight_compression": 0.32,
+        "contrast": 0.2,
+        "saturation": 1.02
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "reed-reflections",
+      "title": "Reed Reflections",
+      "theme": "lagoon",
+      "description": "A duck gliding through long reflections of reeds.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2590.JPG",
+        "sha256": "87f94e7009799baeeb9dc9719555012cd3969b829d9b4d3990c48dc3b5c1181e",
+        "width": 4000,
+        "height": 2248
+      },
+      "crop_px": [
+        8,
+        3,
+        3992,
+        2244
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": -0.04,
+        "shadow_lift": 0.15,
+        "highlight_compression": 0.26,
+        "contrast": 0.24,
+        "saturation": 1.04
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "open-sky",
+      "title": "Open Sky",
+      "theme": "lagoon",
+      "description": "A small plane crossing a broad field of muted blue.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2620.JPG",
+        "sha256": "41fce9736936c1010c2db8f123f5645d6ccdd8386118d7828ed00be235e7cf37",
+        "width": 4000,
+        "height": 2248
+      },
+      "crop_px": [
+        8,
+        3,
+        3992,
+        2244
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 35,
+        "exposure_ev": -0.07,
+        "shadow_lift": 0.06,
+        "highlight_compression": 0.12,
+        "contrast": 0.42,
+        "saturation": 1.1
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "featherlines",
+      "title": "Featherlines",
+      "theme": "lagoon",
+      "description": "An abstract close view of blue feather barbs and their central shaft.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2635.JPG",
+        "sha256": "da3c214a34493e3c08e2705cf996961f61beba1887602b93ad094d3961419fe2",
+        "width": 4000,
+        "height": 3000
+      },
+      "crop_px": [
+        0,
+        290,
+        4000,
+        2540
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 0,
+        "exposure_ev": -0.14,
+        "shadow_lift": 0.06,
+        "highlight_compression": 0.36,
+        "contrast": 0.18,
+        "saturation": 0.96
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "last-amber",
+      "title": "Last Amber",
+      "theme": "ember",
+      "description": "A roofline and trees silhouetted against an amber evening sky.",
+      "source": {
+        "collection": "pictures",
+        "file": "Best Pics/RAW/IMG_2692.JPG",
+        "sha256": "80854d3fb26c436ae5c8b24b5be4ff4c0993cad37bd8b1e653d65e146dae2986",
+        "width": 2992,
+        "height": 2992
+      },
+      "crop_px": [
+        0,
+        540,
+        2992,
+        2223
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": -0.02,
+        "shadow_lift": 0,
+        "highlight_compression": 0.18,
+        "contrast": 0.2,
+        "saturation": 0.94
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "city-afterglow",
+      "title": "City Afterglow",
+      "theme": "ember",
+      "description": "Cloud layers and a warm sun above the city skyline.",
+      "source": {
+        "collection": "pictures",
+        "file": "Yuval Sunset/IMG_20260906_185221749.jpg",
+        "sha256": "47929ff8ad37477f4ffec175d4422e4146ea3eed4280f4b305554357f7c4f3ca",
+        "width": 4096,
+        "height": 3072
+      },
+      "crop_px": [
+        0,
+        160,
+        4096,
+        2464
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1.02,
+          1,
+          0.99
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": 0.02,
+        "shadow_lift": 0.18,
+        "highlight_compression": 0.22,
+        "contrast": 0.24,
+        "saturation": 1.08
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "magenta-in-the-leaves",
+      "title": "Magenta in the Leaves",
+      "theme": "dusk",
+      "description": "A magenta flower peeking through a canopy of leaves.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2618.JPG",
+        "sha256": "0744a9f779b6cef94aae21426bc283adac2e7b7a36a275ad7dc06161848a66e1",
+        "width": 4000,
+        "height": 2248
+      },
+      "crop_px": [
+        8,
+        3,
+        3992,
+        2244
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1.02,
+          1,
+          0.99
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": -0.05,
+        "shadow_lift": 0.12,
+        "highlight_compression": 0.24,
+        "contrast": 0.35,
+        "saturation": 1.13
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "bottlebrush",
+      "title": "Bottlebrush",
+      "theme": "dusk",
+      "description": "Crimson stamens among cool leaves, with a restrained color balance.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2625.JPG",
+        "sha256": "5d5fd04cfbe78c10b2a9cda96bdddf8a962167c54cdb42bc6a79abdc201bd5e4",
+        "width": 4000,
+        "height": 3000
+      },
+      "crop_px": [
+        0,
+        200,
+        4000,
+        2450
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1.06,
+          1,
+          0.86
+        ],
+        "sharpen_percent": 20,
+        "exposure_ev": -0.12,
+        "shadow_lift": 0.1,
+        "highlight_compression": 0.4,
+        "contrast": 0.16,
+        "saturation": 0.88
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "pink-berry",
+      "title": "Pink Berry",
+      "theme": "dusk",
+      "description": "A single bright pink fruit nested between soft green leaves.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2642.JPG",
+        "sha256": "814e030d5ac176d41c9f539eede9b3cf669116acafa91f1aa945b487102888a9",
+        "width": 2992,
+        "height": 2992
+      },
+      "crop_px": [
+        0,
+        410,
+        2992,
+        2093
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 25,
+        "exposure_ev": -0.09,
+        "shadow_lift": 0.06,
+        "highlight_compression": 0.28,
+        "contrast": 0.34,
+        "saturation": 0.99
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "rose-city",
+      "title": "Rose City",
+      "theme": "dusk",
+      "description": "A soft-focus city sunset retaining the photographer\u2019s existing rose and violet grade.",
+      "source": {
+        "collection": "pictures",
+        "file": "Wallpapers/IMG_20260906_185317562-1.png",
+        "sha256": "a8f3201a08ef327bd95e0038fb15bf2f76ae18daf4e9293469e33d3f4bc576bc",
+        "width": 4096,
+        "height": 3072
+      },
+      "crop_px": [
+        0,
+        150,
+        4096,
+        2454
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 0,
+        "exposure_ev": -0.03,
+        "shadow_lift": 0.04,
+        "highlight_compression": 0.16,
+        "contrast": 0.12,
+        "saturation": 0.91
+      },
+      "based_on_existing_edit": true
+    }
+  ]
+}

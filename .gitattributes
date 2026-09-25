@@ -1,0 +1,5 @@
+*.jpg binary
+*.icc binary
+previews/** linguist-generated=true
+index.html linguist-generated=true
+metadata/collection.json linguist-generated=true

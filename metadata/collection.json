@@ -1,0 +1,366 @@
+{
+  "author": "Yuval Kolodkin-Gal",
+  "aspect_ratio": "16:9",
+  "wallpapers": [
+    {
+      "slug": "butterfly-in-gold",
+      "title": "Butterfly in Gold",
+      "theme": "canopy",
+      "description": "An orange butterfly among pale leaves and deep green shade.",
+      "source": {
+        "collection": "pictures",
+        "file": "Best Pics/RAW/IMG_2556.JPG",
+        "sha256": "4038429c33cf68d322a6fea3aa96a0de0c1426f97f5be19e139315db0e0b0f54",
+        "width": 4000,
+        "height": 2248
+      },
+      "master": "wallpapers/master/butterfly-in-gold.jpg",
+      "fullhd": "wallpapers/1920x1080/butterfly-in-gold.jpg",
+      "preview": "previews/butterfly-in-gold.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "7c5d713468aff0be216a3f1c10c18492d495ce9d329fd7f18e674740f572e5fb",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "fig-thief",
+      "title": "Fig Thief",
+      "theme": "canopy",
+      "description": "A parakeet tucked into the green light of a fig tree.",
+      "source": {
+        "collection": "pictures",
+        "file": "Best Pics/RAW/IMG_2573.JPG",
+        "sha256": "22c4654b1db6c8530982110482b21c4b159e1f23fe06fc0a48e4f57b3e6377ab",
+        "width": 4000,
+        "height": 2248
+      },
+      "master": "wallpapers/master/fig-thief.jpg",
+      "fullhd": "wallpapers/1920x1080/fig-thief.jpg",
+      "preview": "previews/fig-thief.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "7f6a453d4298ae2f983237424b1ef7cb9ed20d3ea367437c76469af5f675f1bb",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "porcelain-petals",
+      "title": "Porcelain Petals",
+      "theme": "canopy",
+      "description": "Pale blue flowers against shaded leaves.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2554.JPG",
+        "sha256": "27434465e860409e6bc9b15f4a34d5a62797dbe49a0075ce1062b7132ff90c3a",
+        "width": 4000,
+        "height": 2248
+      },
+      "master": "wallpapers/master/porcelain-petals.jpg",
+      "fullhd": "wallpapers/1920x1080/porcelain-petals.jpg",
+      "preview": "previews/porcelain-petals.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "4d7b40ea5d5bca3dbc61915beb91bd2fbaa0d1e1a165f87fa8f8ac24655e41c6",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "hoopoe-in-the-grass",
+      "title": "Hoopoe in the Grass",
+      "theme": "canopy",
+      "description": "A low view of a hoopoe framed by fine blades of grass.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2602.JPG",
+        "sha256": "19166c50898eb4df9ef8759bac81153818e371ae9ebadc943bd56b0dfa9b8a44",
+        "width": 4000,
+        "height": 2248
+      },
+      "master": "wallpapers/master/hoopoe-in-the-grass.jpg",
+      "fullhd": "wallpapers/1920x1080/hoopoe-in-the-grass.jpg",
+      "preview": "previews/hoopoe-in-the-grass.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "a1ec7aa559048ddb2d052547e410eff9f5e9644149ba4a498423e0f113d9bf70",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "canopy-light",
+      "title": "Canopy Light",
+      "theme": "canopy",
+      "description": "Sunlight tracing the veins of broad leaves.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2605.JPG",
+        "sha256": "6d032c8299a4bcd13675e7cd17d7697c9a406e948b93fa67a4882eefa45d4e76",
+        "width": 4000,
+        "height": 2248
+      },
+      "master": "wallpapers/master/canopy-light.jpg",
+      "fullhd": "wallpapers/1920x1080/canopy-light.jpg",
+      "preview": "previews/canopy-light.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "a202379fbbd80d38d0aa6bef1ac02f84159c5bb0eb6cdef0065f31202b4134b2",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "a-place-to-pause",
+      "title": "A Place to Pause",
+      "theme": "canopy",
+      "description": "Two wooden chairs on a quiet garden path.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2621.JPG",
+        "sha256": "8e7f85cdd759060b0c22536fa2be18567d180431413ace0e1ef0b845c5c4a84a",
+        "width": 4000,
+        "height": 2248
+      },
+      "master": "wallpapers/master/a-place-to-pause.jpg",
+      "fullhd": "wallpapers/1920x1080/a-place-to-pause.jpg",
+      "preview": "previews/a-place-to-pause.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "128ffdbd245918d4bd49428ebd38e9ad967084d4f095b59ccd7575628c011cfc",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "garden-nap",
+      "title": "Garden Nap",
+      "theme": "canopy",
+      "description": "A resting tabby surrounded by tall leaves.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2596.JPG",
+        "sha256": "8cdc4df26a9b4f8e7c2ad5554e7cda7732abf9565c8e7e8730639ed429d4bfe4",
+        "width": 4000,
+        "height": 2248
+      },
+      "master": "wallpapers/master/garden-nap.jpg",
+      "fullhd": "wallpapers/1920x1080/garden-nap.jpg",
+      "preview": "previews/garden-nap.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "65b496f322847f903cbc399e9fe4c64ec5c5ae6a80500ba3fe9a9d96b46419cb",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "violet-water",
+      "title": "Violet Water",
+      "theme": "lagoon",
+      "description": "Violet flower spikes above green water and bright leaves.",
+      "source": {
+        "collection": "pictures",
+        "file": "Best Pics/RAW/IMG_2585.JPG",
+        "sha256": "83f010acaadac0b7dcb37fe8051b3e2ada91e198864444204afea790032299d5",
+        "width": 4000,
+        "height": 2248
+      },
+      "master": "wallpapers/master/violet-water.jpg",
+      "fullhd": "wallpapers/1920x1080/violet-water.jpg",
+      "preview": "previews/violet-water.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "dc117d7ffd3d84ca6adbedcad2f70e9b336acc554b7939550a2421bfff93bb27",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "quiet-water",
+      "title": "Quiet Water",
+      "theme": "lagoon",
+      "description": "A white egret standing in rippled olive water.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2588.JPG",
+        "sha256": "ce1cca2071bf9ae3a469492c891e37df93b2446dfcae19d535c4f00557ead0a0",
+        "width": 4000,
+        "height": 2248
+      },
+      "master": "wallpapers/master/quiet-water.jpg",
+      "fullhd": "wallpapers/1920x1080/quiet-water.jpg",
+      "preview": "previews/quiet-water.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "ec267d459f36af792765904917d27dbcae7e529df948aa398ac9ae79a3b19ffb",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "reed-reflections",
+      "title": "Reed Reflections",
+      "theme": "lagoon",
+      "description": "A duck gliding through long reflections of reeds.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2590.JPG",
+        "sha256": "87f94e7009799baeeb9dc9719555012cd3969b829d9b4d3990c48dc3b5c1181e",
+        "width": 4000,
+        "height": 2248
+      },
+      "master": "wallpapers/master/reed-reflections.jpg",
+      "fullhd": "wallpapers/1920x1080/reed-reflections.jpg",
+      "preview": "previews/reed-reflections.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "56d9e1de88f204ebdb773691b900505a9c11f79397b354c29fb5eef1b230e1cf",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "open-sky",
+      "title": "Open Sky",
+      "theme": "lagoon",
+      "description": "A small plane crossing a broad field of muted blue.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2620.JPG",
+        "sha256": "41fce9736936c1010c2db8f123f5645d6ccdd8386118d7828ed00be235e7cf37",
+        "width": 4000,
+        "height": 2248
+      },
+      "master": "wallpapers/master/open-sky.jpg",
+      "fullhd": "wallpapers/1920x1080/open-sky.jpg",
+      "preview": "previews/open-sky.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "634f198afb4bbe1d5f9c5fdff3b1488126b51e7795221ea900bf2515083a7673",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "featherlines",
+      "title": "Featherlines",
+      "theme": "lagoon",
+      "description": "An abstract close view of blue feather barbs and their central shaft.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2635.JPG",
+        "sha256": "da3c214a34493e3c08e2705cf996961f61beba1887602b93ad094d3961419fe2",
+        "width": 4000,
+        "height": 3000
+      },
+      "master": "wallpapers/master/featherlines.jpg",
+      "fullhd": "wallpapers/1920x1080/featherlines.jpg",
+      "preview": "previews/featherlines.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "97f6600d370c47f25c3d07ca9a9107d911526318e95f92e07228185e103f51bc",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "last-amber",
+      "title": "Last Amber",
+      "theme": "ember",
+      "description": "A roofline and trees silhouetted against an amber evening sky.",
+      "source": {
+        "collection": "pictures",
+        "file": "Best Pics/RAW/IMG_2692.JPG",
+        "sha256": "80854d3fb26c436ae5c8b24b5be4ff4c0993cad37bd8b1e653d65e146dae2986",
+        "width": 2992,
+        "height": 2992
+      },
+      "master": "wallpapers/master/last-amber.jpg",
+      "fullhd": "wallpapers/1920x1080/last-amber.jpg",
+      "preview": "previews/last-amber.jpg",
+      "width": 2992,
+      "height": 1683,
+      "sha256": "7bdc67803f96f511a7c9dd09384e517598fce26bc8598621860e080c294a7bb8",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "city-afterglow",
+      "title": "City Afterglow",
+      "theme": "ember",
+      "description": "Cloud layers and a warm sun above the city skyline.",
+      "source": {
+        "collection": "pictures",
+        "file": "Yuval Sunset/IMG_20260906_185221749.jpg",
+        "sha256": "47929ff8ad37477f4ffec175d4422e4146ea3eed4280f4b305554357f7c4f3ca",
+        "width": 4096,
+        "height": 3072
+      },
+      "master": "wallpapers/master/city-afterglow.jpg",
+      "fullhd": "wallpapers/1920x1080/city-afterglow.jpg",
+      "preview": "previews/city-afterglow.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "3a49ed965b054bebc2ca8147fb608029287d1670632cb305bd08d3801b7a147e",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "magenta-in-the-leaves",
+      "title": "Magenta in the Leaves",
+      "theme": "dusk",
+      "description": "A magenta flower peeking through a canopy of leaves.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2618.JPG",
+        "sha256": "0744a9f779b6cef94aae21426bc283adac2e7b7a36a275ad7dc06161848a66e1",
+        "width": 4000,
+        "height": 2248
+      },
+      "master": "wallpapers/master/magenta-in-the-leaves.jpg",
+      "fullhd": "wallpapers/1920x1080/magenta-in-the-leaves.jpg",
+      "preview": "previews/magenta-in-the-leaves.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "519a40e51e5b42587e2a4d9634bfa04674b149a261cf72a496e279c6d5958f7c",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "bottlebrush",
+      "title": "Bottlebrush",
+      "theme": "dusk",
+      "description": "Crimson stamens among cool leaves, with a restrained color balance.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2625.JPG",
+        "sha256": "5d5fd04cfbe78c10b2a9cda96bdddf8a962167c54cdb42bc6a79abdc201bd5e4",
+        "width": 4000,
+        "height": 3000
+      },
+      "master": "wallpapers/master/bottlebrush.jpg",
+      "fullhd": "wallpapers/1920x1080/bottlebrush.jpg",
+      "preview": "previews/bottlebrush.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "2aba23fe39b0caf180ebbf916d156b8e5c9964ea9c5b22e07b04340d0d58da12",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "pink-berry",
+      "title": "Pink Berry",
+      "theme": "dusk",
+      "description": "A single bright pink fruit nested between soft green leaves.",
+      "source": {
+        "collection": "ventoy",
+        "file": "126___09/IMG_2642.JPG",
+        "sha256": "814e030d5ac176d41c9f539eede9b3cf669116acafa91f1aa945b487102888a9",
+        "width": 2992,
+        "height": 2992
+      },
+      "master": "wallpapers/master/pink-berry.jpg",
+      "fullhd": "wallpapers/1920x1080/pink-berry.jpg",
+      "preview": "previews/pink-berry.jpg",
+      "width": 2992,
+      "height": 1683,
+      "sha256": "1747bc213c4afa4fddfbba6cc1c91638b46d6ef5ea51080f9ccb4736007bad54",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
+      "slug": "rose-city",
+      "title": "Rose City",
+      "theme": "dusk",
+      "description": "A soft-focus city sunset retaining the photographer\u2019s existing rose and violet grade.",
+      "source": {
+        "collection": "pictures",
+        "file": "Wallpapers/IMG_20260906_185317562-1.png",
+        "sha256": "a8f3201a08ef327bd95e0038fb15bf2f76ae18daf4e9293469e33d3f4bc576bc",
+        "width": 4096,
+        "height": 3072
+      },
+      "master": "wallpapers/master/rose-city.jpg",
+      "fullhd": "wallpapers/1920x1080/rose-city.jpg",
+      "preview": "previews/rose-city.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "70b4314190ff0c6c5e35a29850e39823f71f064a21a39a1b8a7196f911cafcb2",
+      "photographer": "Yuval Kolodkin-Gal"
+    }
+  ]
+}
