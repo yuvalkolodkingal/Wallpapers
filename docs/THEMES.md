@@ -9,6 +9,9 @@ Four dark themes pair the collection with readable terminal and shell colors. Ea
 | Ember | Warm charcoal, amber, coral | Last Amber | 2 |
 | Dusk | Plum, rose, lavender | Rose City | 4 |
 
+For one-line installers on Linux, macOS, Windows, or other Unix systems, see
+[the installation guide](INSTALL.md).
+
 ## Install on Omarchy
 
 Requires Python 3.11 or newer. Run these commands from the repository root:
@@ -44,7 +47,7 @@ Write down your previous theme name before switching if you want to return to it
 
 ## Compatibility and customization
 
-The supplied `hyprland.lua` follows the installed Hyprland 0.56.2 / Omarchy Lua configuration format: `hl.config` sets the active and inactive borders for windows and groups. It is not a legacy `hyprland.conf` snippet. These files were checked against the installed templates without changing the live desktop. The palettes remain useful on other desktops, but the installer and activation command target Omarchy.
+The supplied `hyprland.lua` follows the installed Hyprland 0.56.2 / Omarchy Lua configuration format: `hl.config` sets the active and inactive borders for windows and groups. A separate `hyprland.conf` is supplied for legacy Hyprlang configurations. These files were checked against the installed templates without changing the live desktop. The Python installer also supports `--target hyprland` and `--target wallpapers`; its `apply` command targets Omarchy.
 
 `colors.toml` uses flat named values, including background, foreground, accent, ANSI colors, and their bright counterparts. Omarchy generates its application configs from these values. The supplied Lua repeats the two `hyprland_*_border` values; keep those in sync when changing a palette. Foreground and accent colors were checked against the background for text contrast.
 

@@ -8,6 +8,25 @@ sunsets. Local color, exposure, and crop adjustments preserve the original scene
 
 ![The wallpaper collection](previews/collection.jpg)
 
+## Quick install
+
+**Linux / macOS / Unix** (Bash, curl, tar, Python 3.11+):
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/yuvalkolodkingal/Wallpapers/main/install.sh | bash
+```
+
+**Windows PowerShell** (5.1+; no Python needed):
+
+```powershell
+& ([scriptblock]::Create((irm 'https://raw.githubusercontent.com/yuvalkolodkingal/Wallpapers/main/install.ps1')))
+```
+
+Installs the four themes on Omarchy/Hyprland, or the wallpapers on other desktops.
+Choose images in your wallpaper settings; installation does not switch your
+desktop automatically. [Installer options and platform setup](docs/INSTALL.md)
+include theme selection, full-resolution downloads, and optional Omarchy activation.
+
 ## Browse and download
 
 Clone this repo and open [index.html](index.html) in a browser for the offline
@@ -35,8 +54,7 @@ xdg-open index.html
 | **Dusk** | Deep plum, rose, lavender | Magenta flowers, bottlebrush, pink berry, rose city |
 
 Theme setup and installer instructions are in [docs/THEMES.md](docs/THEMES.md).
-Themes are packaged for the Lua configuration used by this collection's
-Hyprland 0.56.2 / Omarchy system. The theme directories include matching
+Themes include current Hyprland Lua configs and legacy Hyprlang snippets. The theme directories include matching
 backgrounds and palettes for Omarchy's app-theme generation.
 
 Preview or install all four themes:
