@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Install the collection's Omarchy themes without replacing existing files."""
+"""Install wallpapers or Hyprland/Omarchy themes without replacing user files."""
 from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import os
 from pathlib import Path
 import re
@@ -23,7 +24,7 @@ def theme_names() -> list[str]:
                   if p.is_dir() and (p / 'colors.toml').is_file())
 
 
-def files_for(name: str) -> dict[Path, Path]:
+def files_for(name: str, target: str = 'omarchy') -> dict[Path, Path]:
     """Return validated data and Lua from this theme, resolving local photos."""
     directory = ROOT / 'themes' / name
     palette = tomllib.loads((directory / 'colors.toml').read_text())
@@ -31,6 +32,8 @@ def files_for(name: str) -> dict[Path, Path]:
         if not re.fullmatch(r'#[0-9a-fA-F]{6}', palette.get(key, '')):
             raise ValueError(f'{name}: invalid or missing palette key {key}')
     files = {Path(p): directory / p for p in ('colors.toml', 'hyprland.lua')}
+    if target == 'hyprland':
+        files[Path('hyprland.conf')] = directory / 'hyprland.conf'
     backgrounds = sorted((directory / 'backgrounds').iterdir())
     if not backgrounds:
         raise ValueError(f'{name}: no backgrounds')
@@ -61,12 +64,23 @@ def identical(target: Path, files: dict[Path, Path]) -> bool:
                for rel, source in files.items())
 
 
-def install(names: list[str], destination: Path, dry_run: bool) -> None:
+def default_destination(target: str) -> Path:
+    if target == 'omarchy':
+        # Omarchy's own commands use this fixed location.
+        return DEFAULT_DEST
+    if target == 'hyprland':
+        return Path(os.environ.get('XDG_CONFIG_HOME') or Path.home() / '.config') / 'hypr/themes'
+    if sys.platform == 'darwin':
+        return Path.home() / 'Pictures/Yuval Wallpapers'
+    return Path(os.environ.get('XDG_DATA_HOME') or Path.home() / '.local/share') / 'yuval-wallpapers'
+
+
+def install(names: list[str], destination: Path, dry_run: bool, target_kind: str = 'omarchy') -> None:
     destination = destination.expanduser().absolute()
     plans = []
     # Preflight every target before writing anything.
     for name in names:
-        files = files_for(name)
+        files = files_for(name, target_kind)
         target = destination / (PREFIX + name)
         if target.exists() or target.is_symlink():
             if identical(target, files):
@@ -76,7 +90,8 @@ def install(names: list[str], destination: Path, dry_run: bool) -> None:
                              'Rename that path to a backup before installing again.')
         plans.append((name, files, target))
     for name, files, target in plans:
-        print(f'{"Would install" if dry_run else "Installing"}: {name} -> {target} ({len(files)-2} backgrounds)')
+        count = sum(p.parts[0] == 'backgrounds' for p in files)
+        print(f'{"Would install" if dry_run else "Installing"}: {name} -> {target} ({count} backgrounds)')
         if dry_run:
             continue
         destination.mkdir(parents=True, exist_ok=True)
@@ -98,6 +113,48 @@ def install(names: list[str], destination: Path, dry_run: bool) -> None:
                 raise
     if plans and not dry_run:
         print('Installed. Your active desktop theme has not changed.')
+    if target_kind == 'hyprland':
+        print('Load one installed hyprland.lua (current Lua configs) or hyprland.conf (legacy configs).')
+        print('See https://github.com/yuvalkolodkingal/Wallpapers/blob/main/docs/INSTALL.md#plain-hyprland')
+
+
+def install_wallpapers(names: list[str], destination: Path, dry_run: bool, resolution: str) -> None:
+    """Merge selected photos, preflighting every collision before copying anything."""
+    destination = destination.expanduser().absolute()
+    manifest = json.loads((ROOT / 'metadata/collection.json').read_text())
+    key = 'master' if resolution == 'master' else 'fullhd'
+    files = {Path('COPYRIGHT'): ROOT / 'COPYRIGHT'}
+    for photo in manifest['wallpapers']:
+        if photo['theme'] not in names:
+            continue
+        source = (ROOT / photo[key]).resolve(strict=True)
+        if not source.is_relative_to(ROOT / 'wallpapers') or not source.is_file():
+            raise ValueError(f'Invalid wallpaper path: {photo[key]}')
+        files[Path(resolution) / source.name] = source
+    plans = []
+    for relative, source in files.items():
+        target = destination / relative
+        for parent in [destination, *target.parents]:
+            if parent == destination.parent:
+                break
+            if parent.is_symlink() or (parent.exists() and not parent.is_dir()):
+                raise ValueError(f'Expected a normal destination directory: {parent}')
+        if target.is_symlink():
+            raise ValueError(f'Refusing to replace symlink: {target}')
+        if target.exists():
+            if not target.is_file() or digest(target) != digest(source):
+                raise ValueError(f'Refusing to replace differing file: {target}')
+        else:
+            plans.append((source, target))
+    print(f'{"Would install" if dry_run else "Installing"}: {len(files)-1} wallpapers ({resolution}) -> {destination}')
+    if dry_run:
+        return
+    for source, target in plans:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        # Exclusive create also protects files created after the preflight.
+        with source.open('rb') as source_file, target.open('xb') as output:
+            shutil.copyfileobj(source_file, output)
+    print('Wallpapers installed. Choose an image in your desktop wallpaper settings.')
 
 
 def apply(name: str, dry_run: bool) -> None:
@@ -125,10 +182,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
     sub.add_parser('list', help='List palettes and wallpaper counts')
-    install_parser = sub.add_parser('install', help='Copy themes into user-local Omarchy; never activates them')
+    install_parser = sub.add_parser('install', help='Copy wallpapers or themes; never activates them')
     install_parser.add_argument('theme', choices=theme_names() + ['all'])
-    install_parser.add_argument('--dest', type=Path, default=DEFAULT_DEST,
-                                help='Theme parent directory (default: ~/.config/omarchy/themes)')
+    install_parser.add_argument('--target', choices=['omarchy', 'hyprland', 'wallpapers'], default='omarchy')
+    install_parser.add_argument('--dest', type=Path, help='Override the destination directory')
+    install_parser.add_argument('--resolution', choices=['1920x1080', 'master'], default='1920x1080',
+                                help='Wallpaper-only export size; theme backgrounds use 1920x1080')
     install_parser.add_argument('--dry-run', action='store_true')
     apply_parser = sub.add_parser('apply', help='Explicitly switch the running desktop to one installed theme')
     apply_parser.add_argument('theme', choices=theme_names())
@@ -141,7 +200,14 @@ def main() -> int:
                 palette = tomllib.loads((ROOT / 'themes' / name / 'colors.toml').read_text())
                 print(f'{name:8s}  {len(files)-2} backgrounds  accent {palette["accent"]}  installs as {PREFIX}{name}')
         elif args.command == 'install':
-            install(theme_names() if args.theme == 'all' else [args.theme], args.dest, args.dry_run)
+            names = theme_names() if args.theme == 'all' else [args.theme]
+            destination = args.dest or default_destination(args.target)
+            if args.target == 'wallpapers':
+                install_wallpapers(names, destination, args.dry_run, args.resolution)
+            elif args.resolution != '1920x1080':
+                raise ValueError('--resolution master is only available with --target wallpapers')
+            else:
+                install(names, destination, args.dry_run, args.target)
         else:
             apply(args.theme, args.dry_run)
     except (OSError, ValueError, subprocess.CalledProcessError) as error:
