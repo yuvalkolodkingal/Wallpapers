@@ -10,7 +10,7 @@ heading=ImageFont.load_default(size=30)
 canvas=Image.new('RGB',(1536,100+326*((len(items)+2)//3)), '#141719')
 draw=ImageDraw.Draw(canvas)
 draw.text((18,16),'WALLPAPERS / YUVAL KOLODKIN-GAL',font=heading,fill='#eef0e9')
-draw.text((18,61),'Original photography · 18 selections · Four matching desktop themes',font=font,fill='#a8b1a7')
+draw.text((18,61),f'Original photography · {len(items)} selections · Four matching desktop themes',font=font,fill='#a8b1a7')
 for i,item in enumerate(items):
  x=i%3*512+8;y=100+i//3*326
  with Image.open(ROOT/item['preview']) as im:

@@ -283,6 +283,29 @@
       "photographer": "Yuval Kolodkin-Gal"
     },
     {
+      "slug": "ember-clouds-city-silhouette",
+      "title": "Ember Clouds, City Silhouette",
+      "theme": "ember",
+      "description": "Sunlit cloud edges glow orange beside a dark city silhouette.",
+      "featured": true,
+      "source": {
+        "collection": "edited",
+        "file": "ember-clouds-city-silhouette.jpg",
+        "sha256": "7af8cb5ce0d87773109d759afdd1d14ef22ce7e84fdc1533da1539083cd11b0b",
+        "width": 2048,
+        "height": 1152,
+        "original_photo": "IMG_2775",
+        "provenance": "User-provided completed GIMP edit; camera-original bytes were not supplied."
+      },
+      "master": "wallpapers/master/ember-clouds-city-silhouette.jpg",
+      "fullhd": "wallpapers/1920x1080/ember-clouds-city-silhouette.jpg",
+      "preview": "previews/ember-clouds-city-silhouette.jpg",
+      "width": 2048,
+      "height": 1152,
+      "sha256": "7af8cb5ce0d87773109d759afdd1d14ef22ce7e84fdc1533da1539083cd11b0b",
+      "photographer": "Yuval Kolodkin-Gal"
+    },
+    {
       "slug": "magenta-in-the-leaves",
       "title": "Magenta in the Leaves",
       "theme": "dusk",

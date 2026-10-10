@@ -1,5 +1,6 @@
 """Safety checks for installing into existing user directories, no live changes."""
 import hashlib
+import json
 from pathlib import Path
 import subprocess
 import sys
@@ -11,6 +12,8 @@ SCRIPT = ROOT / 'scripts/theme.py'
 
 class ThemeInstallerTests(unittest.TestCase):
     def setUp(self):
+        self.photos = json.loads((ROOT/'metadata/collection.json').read_text())['wallpapers']
+        self.ember_count = sum(photo['theme'] == 'ember' for photo in self.photos)
         self.temp = tempfile.TemporaryDirectory(prefix='wallpaper-install-')
         self.addCleanup(self.temp.cleanup)
         self.directory = Path(self.temp.name)
@@ -32,7 +35,7 @@ class ThemeInstallerTests(unittest.TestCase):
     def test_themes_copy_backgrounds_and_are_idempotent(self):
         self.assert_success(self.run_install())
         photos = list(self.destination.glob('*/backgrounds/*.jpg'))
-        self.assertEqual(len(photos), 18)
+        self.assertEqual(len(photos), len(self.photos))
         self.assertTrue(all(not p.is_symlink() for p in photos))
         self.assertEqual(len(list(self.destination.glob('*/hyprland.lua'))), 4)
         self.assertFalse(list(self.destination.glob('*/hyprland.conf')))
@@ -57,11 +60,11 @@ class ThemeInstallerTests(unittest.TestCase):
 
     def test_wallpapers_merge_themes_and_sizes(self):
         self.assert_success(self.run_install('ember', 'wallpapers'))
-        self.assertEqual(len(list((self.destination/'1920x1080').glob('*.jpg'))), 2)
+        self.assertEqual(len(list((self.destination/'1920x1080').glob('*.jpg'))), self.ember_count)
         self.assert_success(self.run_install('all', 'wallpapers'))
-        self.assertEqual(len(list((self.destination/'1920x1080').glob('*.jpg'))), 18)
+        self.assertEqual(len(list((self.destination/'1920x1080').glob('*.jpg'))), len(self.photos))
         self.assert_success(self.run_install('ember', 'wallpapers', '--resolution', 'master'))
-        self.assertEqual(len(list((self.destination/'master').glob('*.jpg'))), 2)
+        self.assertEqual(len(list((self.destination/'master').glob('*.jpg'))), self.ember_count)
         self.assert_success(self.run_install('all', 'wallpapers'))
         self.assertEqual((self.destination/'COPYRIGHT').read_bytes(), (ROOT/'COPYRIGHT').read_bytes())
 

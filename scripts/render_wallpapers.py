@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import numpy as np
 from PIL import Image, ImageCms, ImageFilter, ImageOps
+from preserve_edited_jpeg import MODE as PRESERVE_EDITED_JPEG, write_exports
 
 ROOT = Path(__file__).resolve().parents[1]
 AUTHOR = 'Yuval Kolodkin-Gal'
@@ -68,9 +69,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--pictures-root', type=Path, required=True)
     parser.add_argument('--ventoy-root', type=Path, required=True)
+    parser.add_argument('--edited-root', type=Path,
+                        help='Finished edited JPEGs; defaults to the published masters for exact-copy recovery')
     parser.add_argument('--only', nargs='*', help='Render only these slugs; collection metadata still includes all existing exports.')
     args = parser.parse_args()
-    roots = {'pictures': args.pictures_root, 'ventoy': args.ventoy_root}
+    roots = {'pictures': args.pictures_root, 'ventoy': args.ventoy_root,
+             'edited': args.edited_root or ROOT / 'wallpapers/master'}
     recipes = json.loads((ROOT / 'metadata/recipes.json').read_text())
     if args.only is not None:
         unknown = set(args.only) - {r['slug'] for r in recipes['wallpapers']}
@@ -88,28 +92,50 @@ def main():
             sha = hashlib.sha256(src.read_bytes()).hexdigest()
             if sha != source['sha256']:
                 raise SystemExit(f'Source checksum changed: {source["file"]}')
-            im = load_srgb(src)
-            box = r['crop_px']
-            if not (0 <= box[0] < box[2] <= im.width and 0 <= box[1] < box[3] <= im.height):
-                raise SystemExit(f'Invalid crop: {slug}')
-            im = im.crop(tuple(box))
-            if im.width * 9 != im.height * 16:
-                raise SystemExit(f'Crop is not exactly 16:9: {slug}')
-            im = grade(im, r['adjustments'])
-            size = (min(3840, im.width), min(2160, im.height))
-            if size[0] < 1920 or size[1] < 1080:
-                raise SystemExit(f'Selected source is too small: {slug}')
-            master_im = im.resize(size, Image.Resampling.LANCZOS)
-            sharp = r['adjustments'].get('sharpen_percent', 25)
-            export_jpeg(master_im, master, 94, sharp)
-            export_jpeg(master_im.resize((1920,1080), Image.Resampling.LANCZOS), hd, 93, sharp)
-            export_jpeg(master_im.resize((640,360), Image.Resampling.LANCZOS), preview, 86, 10)
-            print(f'{slug}: {size[0]}x{size[1]} + 1920x1080', flush=True)
+            if r.get('processing') == PRESERVE_EDITED_JPEG:
+                # A completed edit must not enter the camera-photo grading path.
+                # Keep the existing collection contract: genuine Full HD is
+                # required. Smaller inputs fail before any exports are written.
+                with Image.open(src) as existing:
+                    expected_crop = [0, 0, existing.width, existing.height]
+                    expected_source_size = (existing.width, existing.height)
+                if (source['width'], source['height']) != expected_source_size:
+                    raise SystemExit('Preserved JPEG source dimensions do not match its recipe')
+                if r['crop_px'] != expected_crop or r['adjustments']:
+                    raise SystemExit('Preserved JPEG edits require a full-image crop and empty adjustments')
+                try:
+                    write_exports(src.read_bytes(), sha,
+                                  {'master': master, 'fullhd': hd, 'preview': preview}, source_path=src,
+                                  keep_existing_master=(source['collection'] == 'edited' and args.edited_root is None))
+                except ValueError as error:
+                    raise SystemExit(f'{slug}: {error}') from error
+                print(f'{slug}: existing edit preserved + 1920x1080', flush=True)
+            elif r.get('processing') is not None:
+                raise SystemExit(f'Unknown processing mode: {r["processing"]}')
+            else:
+                im = load_srgb(src)
+                box = r['crop_px']
+                if not (0 <= box[0] < box[2] <= im.width and 0 <= box[1] < box[3] <= im.height):
+                    raise SystemExit(f'Invalid crop: {slug}')
+                im = im.crop(tuple(box))
+                if im.width * 9 != im.height * 16:
+                    raise SystemExit(f'Crop is not exactly 16:9: {slug}')
+                im = grade(im, r['adjustments'])
+                size = (min(3840, im.width), min(2160, im.height))
+                if size[0] < 1920 or size[1] < 1080:
+                    raise SystemExit(f'Selected source is too small: {slug}')
+                master_im = im.resize(size, Image.Resampling.LANCZOS)
+                sharp = r['adjustments'].get('sharpen_percent', 25)
+                export_jpeg(master_im, master, 94, sharp)
+                export_jpeg(master_im.resize((1920,1080), Image.Resampling.LANCZOS), hd, 93, sharp)
+                export_jpeg(master_im.resize((640,360), Image.Resampling.LANCZOS), preview, 86, 10)
+                print(f'{slug}: {size[0]}x{size[1]} + 1920x1080', flush=True)
         if not master.exists():
             continue
         with Image.open(master) as im:
             w,h = im.size
         entries.append({**{k:r[k] for k in ['slug','title','theme','description']},
+                        **({'featured': r['featured']} if 'featured' in r else {}),
                         'source': source, 'master': str(master.relative_to(ROOT)),
                         'fullhd': str(hd.relative_to(ROOT)), 'preview':str(preview.relative_to(ROOT)),
                         'width':w, 'height':h, 'sha256':hashlib.sha256(master.read_bytes()).hexdigest(),
