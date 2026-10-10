@@ -11,7 +11,7 @@ Reviewed 142 camera images from the Ventoy DCIM directory and 84 raster images
 from Pictures (226 files, 214 unique file hashes). Pictures includes 18 photo,
 wallpaper, and screenshot entries plus 66 unrelated video-project graphics,
 profile images, and editing previews. Those project graphics are excluded.
-The final set contains 18 distinct selections; duplicate copies across Pictures
+The original set contains 18 distinct selections; duplicate copies across Pictures
 and Ventoy are represented once. Near-identical burst frames, weaker focus,
 overexposed variants, and distracting compositions were left out.
 
@@ -21,11 +21,20 @@ of a deliberately soft-looking city image. Its source is already graded, which
 is recorded in `metadata/recipes.json`. The other selections start from camera
 JPEGs, including the JPEGs stored in a folder named `RAW`.
 
+**Ember Clouds, City Silhouette** is the nineteenth selection. The photographer
+supplied the completed GIMP 3.0.4 edit of IMG_2775 as a 2048×1152 JPEG. Its exact
+SHA-256 is `7af8cb5ce0d87773109d759afdd1d14ef22ce7e84fdc1533da1539083cd11b0b`.
+The camera-original bytes were not supplied, so no camera-original checksum or
+invented RAW recipe is recorded. Its finished edit is preserved byte for byte,
+including the existing artist/copyright/GIMP credit and reviewed sRGB profile;
+only its 1920×1080 and 640×360 derivatives are downsampled locally.
+
 ## Processing
 
 `metadata/recipes.json` records the original relative filename, SHA-256 checksum,
 auto-oriented pixel crop, and every adjustment. Source paths in this public repo
-are relative to the two input roots; the complete local inventory stays private.
+are relative to their input roots; the complete local inventory stays private.
+Camera inputs use `pictures` or `ventoy`; completed JPEG edits use `edited`.
 
 The renderer converts embedded color profiles to sRGB, applies exposure and
 white-balance gains in linear light, uses smooth luminance masks for shadows and
@@ -45,7 +54,8 @@ and Rose City receive no output sharpening. Every export is exactly 16:9.
 
 All wallpapers have a 1920×1080 version. Sixteen have 3840×2160 masters. The two
 square-source crops, Last Amber and Pink Berry, have 2992×1683 masters. Nothing is
-upscaled. The original photographs' optical softness and clipped highlights
+upscaled. Ember Clouds, City Silhouette retains its 2048×1152 finished master.
+The original photographs' optical softness and clipped highlights
 cannot be reconstructed by these adjustments.
 
 JPEGs use high-quality 4:4:4 encoding with an embedded sRGB profile. New EXIF
@@ -77,3 +87,71 @@ source dimensions, and crop in the recipe first.
 The bundled `profiles/sRGB.icc` is a fixed sRGB output profile. Keeping its creation
 time stable also makes unchanged renders produce identical JPEG bytes under the
 locked dependency versions.
+
+### Preserve a completed JPEG edit
+
+For an already finished JPEG, use the explicit recipe value
+`"processing": "preserve-existing-edited-jpeg"`, with `"adjustments": {}` and a
+crop covering the entire image. The renderer sends this mode through
+`scripts/preserve_edited_jpeg.py`; it does not grade, sharpen, crop, rotate or
+recompress the master. Record the input checksum in the recipe and the separate
+published master checksum in the collection: inserting attribution changes the
+file checksum even though every decoded pixel and JPEG coding byte is preserved.
+If the original JPEG already has the exact reviewed three-tag attribution
+serialization, thumbnail-free decoding headers and no private metadata, the
+entire file is preserved, including its checksum. The known GIMP software credit
+is retained only on exact equality to a fresh trusted attribution block; extra
+IFDs, hidden text, nonzero padding or arbitrary software strings cannot pass.
+
+The preservation utility can also prepare exports without changing recipes,
+the collection, theme links or gallery:
+
+```sh
+uv run scripts/preserve_edited_jpeg.py \
+  --source /path/to/finished-edit.jpg --sha256 EXACT_INPUT_SHA256 \
+  --master wallpapers/master/example.jpg \
+  --fullhd wallpapers/1920x1080/example.jpg --preview previews/example.jpg
+```
+
+`--fullhd` and `--preview` are optional, but a requested derivative must fit
+inside the input dimensions. The existing collection renderer still requires a
+genuine 1920×1080 derivative; a smaller source fails before any exports are
+written. The JPEG must already be RGB, exactly 16:9, no larger than 3840×2160,
+and oriented without a nontrivial EXIF Orientation tag. Only baseline and
+progressive JPEG coding are supported. Downsampled derivatives use Lanczos and
+fresh JPEG encoding; only the master preserves the original coding bytes.
+
+Original EXIF (including nested GPS, maker notes and thumbnails), XMP, IPTC,
+comments, unknown application metadata and trailing bytes are removed across
+all scans. New EXIF contains only Artist, Copyright and processing-software
+credit. Thumbnail-free JFIF and canonical Adobe decoding headers are retained.
+The original ICC chunks remain unchanged; only the exact inspected bundled
+sRGB profile and the standard compact sRGB profile with SHA-256
+`12afb4d9953adee0607d347daee5b78b18d6b3cab2d572b88970703f5edb37bc`
+are accepted. Other profiles fail closed until their metadata has been reviewed;
+an arbitrary ICC can itself contain private text. This preserves ordinary
+photographic image data, not a guarantee against information hidden in pixels
+or image coding data.
+
+Finished edits use the source collection `edited`, with their actual edited
+filename and checksum. To reproduce an edit from a separately saved input:
+
+```sh
+uv run scripts/render_wallpapers.py \
+  --pictures-root /path/to/Pictures --ventoy-root /path/to/DCIM \
+  --edited-root /path/to/finished-edits --only ember-clouds-city-silhouette
+```
+
+Without `--edited-root`, the renderer uses the exact published master as the
+recovery source and never rewrites it. Its recorded checksum must still match:
+
+```sh
+uv run scripts/render_wallpapers.py \
+  --pictures-root unused --ventoy-root unused --only ember-clouds-city-silhouette
+```
+
+The utility emits checksums, dimensions, coding/pixel identity evidence and
+metadata-removal counts. Its output paths are restricted to repository export
+directories, and source photographs must remain untouched. Adding a preserved
+edit to the collection also requires explicit verifier support for its reviewed
+ICC; this utility alone does not relax the existing collection's ICC rules.

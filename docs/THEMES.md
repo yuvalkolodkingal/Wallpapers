@@ -6,7 +6,7 @@ Four dark themes pair the collection with readable terminal and shell colors. Ea
 | --- | --- | --- | --- |
 | Canopy | Forest, soft lime, butterfly gold | Fig Thief | 7 |
 | Lagoon | Deep teal, sage, water lavender | Violet Water | 5 |
-| Ember | Warm charcoal, amber, coral | Last Amber | 2 |
+| Ember | Warm charcoal, amber, coral | Last Amber | 3 |
 | Dusk | Plum, rose, lavender | Rose City | 4 |
 
 For one-line installers on Linux, macOS, Windows, or other Unix systems, see

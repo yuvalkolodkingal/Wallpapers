@@ -465,6 +465,31 @@
       "based_on_existing_edit": false
     },
     {
+      "slug": "ember-clouds-city-silhouette",
+      "title": "Ember Clouds, City Silhouette",
+      "theme": "ember",
+      "description": "Sunlit cloud edges glow orange beside a dark city silhouette.",
+      "source": {
+        "collection": "edited",
+        "file": "ember-clouds-city-silhouette.jpg",
+        "sha256": "7af8cb5ce0d87773109d759afdd1d14ef22ce7e84fdc1533da1539083cd11b0b",
+        "width": 2048,
+        "height": 1152,
+        "original_photo": "IMG_2775",
+        "provenance": "User-provided completed GIMP edit; camera-original bytes were not supplied."
+      },
+      "crop_px": [
+        0,
+        0,
+        2048,
+        1152
+      ],
+      "adjustments": {},
+      "based_on_existing_edit": true,
+      "processing": "preserve-existing-edited-jpeg",
+      "featured": true
+    },
+    {
       "slug": "magenta-in-the-leaves",
       "title": "Magenta in the Leaves",
       "theme": "dusk",

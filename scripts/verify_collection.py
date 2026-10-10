@@ -11,12 +11,13 @@ import tomllib
 from pathlib import Path
 
 from PIL import Image, ImageCms
+from preserve_edited_jpeg import MODE as PRESERVE_EDITED_JPEG, preserved_master
 
 ROOT = Path(__file__).resolve().parents[1]
 AUTHOR = 'Yuval Kolodkin-Gal'
 HEX = re.compile(r'#[0-9a-fA-F]{6}(?:[0-9a-fA-F]{2})?\Z')
 ALLOWED_INFO = {'jfif', 'jfif_version', 'jfif_unit', 'jfif_density',
-                'dpi', 'exif', 'icc_profile'}
+                'dpi', 'exif', 'icc_profile', 'progressive', 'progression'}
 
 
 def require(condition, message):
@@ -36,7 +37,7 @@ def sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check_image(path, expected_size, crop_size, profile):
+def check_image(path, expected_size, crop_size, profile, preserve_edit=False):
     with Image.open(path) as image:
         image.load()  # Decode completely, so truncated JPEGs are caught.
         require(image.format == 'JPEG' and image.mode == 'RGB', 'Expected RGB JPEG')
@@ -50,6 +51,10 @@ def check_image(path, expected_size, crop_size, profile):
         require(exif[33432] == f'Copyright 2026 {AUTHOR}. All rights reserved.',
                 'Incorrect copyright attribution')
         require(not (set(image.info) - ALLOWED_INFO), 'Unexpected embedded metadata')
+        for flag in ('progressive', 'progression'):
+            if flag in image.info:
+                require(type(image.info[flag]) is int and image.info[flag] == 1,
+                        'Invalid progressive JPEG decoder flag')
         require(image.info.get('icc_profile') == profile, 'Incorrect embedded sRGB profile')
         # An EXIF thumbnail lives in a second IFD, outside getexif()'s main tags.
         tiff = image.info['exif'][6:]
@@ -58,6 +63,10 @@ def check_image(path, expected_size, crop_size, profile):
         count = struct.unpack_from(order + 'H', tiff, offset)[0]
         next_ifd = struct.unpack_from(order + 'I', tiff, offset + 2 + count * 12)[0]
         require(next_ifd == 0, 'Unexpected embedded EXIF thumbnail/IFD')
+    if preserve_edit:
+        data = path.read_bytes()
+        sanitized, _ = preserved_master(data, sha256(path))
+        require(sanitized == data, 'Edited JPEG has metadata outside the strict published allowlist')
 
 
 def check_colors(path):
@@ -105,7 +114,14 @@ def main():
             require(photo['photographer'] == AUTHOR, 'Incorrect collection photo credit')
             source = recipe['source']
             require(re.fullmatch(r'[0-9a-f]{64}', source['sha256']), 'Invalid source checksum')
-            require(source['collection'] in {'pictures', 'ventoy'}, 'Unknown source collection')
+            require(source['collection'] in {'pictures', 'ventoy', 'edited'}, 'Unknown source collection')
+            preserve_edit = recipe.get('processing') == PRESERVE_EDITED_JPEG
+            require(source['collection'] != 'edited' or preserve_edit,
+                    'Edited sources must use the preservation processing mode')
+            if preserve_edit:
+                require(recipe['adjustments'] == {}, 'Preserved edits cannot be regraded')
+                require(recipe['crop_px'] == [0, 0, source['width'], source['height']],
+                        'Preserved edits cannot be cropped')
             require(not Path(source['file']).is_absolute() and '..' not in Path(source['file']).parts,
                     'Unsafe source-relative path')
             x1, y1, x2, y2 = recipe['crop_px']
@@ -125,10 +141,12 @@ def main():
                 require(photo[kind] == expected_path, f'Unexpected {kind} path')
                 path = repo_path(photo[kind])
                 expected_files.add(path)
-                check_image(path, sizes[kind], crop, profile)
+                check_image(path, sizes[kind], crop, profile, preserve_edit)
             require(master_size[0] >= 1920 and master_size[1] >= 1080,
                     'Master is smaller than Full HD')
             require(sha256(repo_path(photo['master'])) == photo['sha256'], 'Master checksum mismatch')
+            if source['collection'] == 'edited':
+                require(source['sha256'] == photo['sha256'], 'Finished source master was changed')
         except (KeyError, OSError, ValueError, TypeError, struct.error) as error:
             errors.append(f'{slug}: {error}')
 
