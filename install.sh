@@ -2,7 +2,7 @@
 # Wallpapers photographed by Yuval Kolodkin-Gal (@yuvalkolodkingal).
 # Keep the payload pinned; update this SHA when publishing a new installer.
 set -euo pipefail
-SOURCE_REF='4f0288d170ad505a4f6c7239f85e200b44836621'
+SOURCE_REF='bde17e1fe24a96a500e37c17065834f346563a59'
 TMP_DIR=''
 
 usage() {
