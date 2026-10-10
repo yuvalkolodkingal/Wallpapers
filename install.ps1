@@ -45,7 +45,7 @@ $Theme = $Theme.ToLowerInvariant()
 $Resolution = $Resolution.ToLowerInvariant()
 
 # Pin payload changes separately from the installer commit.
-$SourceRef = '97a73e0e951978f637b627f6ff086b29d1946d30'
+$SourceRef = '4f0288d170ad505a4f6c7239f85e200b44836621'
 $ArchiveUrl = "https://codeload.github.com/yuvalkolodkingal/Wallpapers/zip/$SourceRef"
 $ArchiveRoot = "Wallpapers-$SourceRef/"
 $TemporaryRoot = $null
