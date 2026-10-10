@@ -26,9 +26,11 @@ Usage: .\install.ps1 [-Theme all|canopy|lagoon|ember|dusk]
                      [-Resolution 1920x1080|master]
                      [-Destination PATH] [-DryRun] [-Help]
 
-Installs to Pictures\Yuval Wallpapers by default. The selected photographs go
-in a 1920x1080 or master subfolder. Master images retain their exported size,
-up to 3840x2160. Downloads a pinned repository snapshot into a temporary folder.
+Installs to Pictures\Yuval Wallpapers by default. Full HD photographs go in
+1920x1080; smaller photographs go in native at their exported size, without
+upscaling. -Resolution master puts all selected photographs in master at their
+exported size, up to 3840x2160. Use master for a slideshow of the full selection.
+Downloads a pinned repository snapshot into a temporary folder.
 DryRun downloads and checks files without writing to the destination.
 Identical existing files are kept; differing files are never overwritten.
 No administrator rights, Git, or Python are needed. Desktop settings are unchanged.
@@ -172,22 +174,35 @@ try {
 
     $Files = @()
     $Targets = @{}
+    $NativeCount = 0
     foreach ($Wallpaper in $Selected) {
         if ($Wallpaper.slug -notmatch '^[a-z0-9]+(-[a-z0-9]+)*$' -or
             $Wallpaper.photographer -ne 'Yuval Kolodkin-Gal') {
             throw 'Invalid wallpaper metadata in the snapshot.'
         }
-        $RelativeSource = [string]$Wallpaper.fullhd
-        if ($Resolution -eq 'master') { $RelativeSource = [string]$Wallpaper.master }
-        $ExpectedSource = "wallpapers/$Resolution/$($Wallpaper.slug).jpg"
+        $SourceResolution = $Resolution
+        $TargetFolder = $Resolution
+        if ($Resolution -eq 'master') {
+            $RelativeSource = [string]$Wallpaper.master
+        }
+        elseif ($null -eq $Wallpaper.fullhd) {
+            $RelativeSource = [string]$Wallpaper.master
+            $SourceResolution = 'master'
+            $TargetFolder = 'native'
+            $NativeCount++
+        }
+        else {
+            $RelativeSource = [string]$Wallpaper.fullhd
+        }
+        $ExpectedSource = "wallpapers/$SourceResolution/$($Wallpaper.slug).jpg"
         if ($RelativeSource -cne $ExpectedSource) {
             throw "Unexpected wallpaper path: $RelativeSource"
         }
-        $RelativeTarget = "$Resolution/$($Wallpaper.slug).jpg"
+        $RelativeTarget = "$TargetFolder/$($Wallpaper.slug).jpg"
         if ($Targets.ContainsKey($RelativeTarget)) { throw "Duplicate wallpaper: $RelativeTarget" }
         $Targets.Add($RelativeTarget, $true)
         $Source = Expand-SelectedFile $RelativeSource
-        if ($Resolution -eq 'master' -and
+        if ($SourceResolution -eq 'master' -and
             (Get-FileHash -LiteralPath $Source -Algorithm SHA256).Hash -ne $Wallpaper.sha256) {
             throw "Wallpaper checksum mismatch: $($Wallpaper.slug)"
         }
@@ -201,7 +216,11 @@ Photography by Yuval Kolodkin-Gal (@yuvalkolodkingal).
 https://github.com/yuvalkolodkingal/Wallpapers
 
 Choose a photograph in Settings > Personalization > Background > Browse photos.
-For a slideshow, choose Slideshow and select the 1920x1080 or master subfolder.
+The default installation puts Full HD photographs in 1920x1080 and smaller
+photographs in native, without upscaling. -Resolution master puts all selected
+photographs in master at their exported size, up to 3840x2160.
+For a slideshow, select an installed subfolder. To include the full selection
+in one slideshow, install with -Resolution master and select the master folder.
 The installer does not change your desktop settings.
 
 Run install.ps1 -Help to see theme, resolution, and destination options.
@@ -228,7 +247,10 @@ See COPYRIGHT for the photography credit and reuse terms.
         }
         else { $Pending += $File }
     }
-    Write-Host "Selected $($Selected.Count) $Resolution wallpapers ($Theme)."
+    Write-Host "Selected $($Selected.Count) wallpapers ($Theme; resolution: $Resolution)."
+    if ($NativeCount -gt 0) {
+        Write-Host "$NativeCount smaller photographs will be kept at their exported size in native."
+    }
     Write-Host "Destination: $Destination"
     if ($DryRun) {
         Write-Host "Dry run: $($Pending.Count) files would be added. No destination files were written."

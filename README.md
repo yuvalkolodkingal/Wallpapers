@@ -2,7 +2,7 @@
 
 **All photographs taken by [Yuval Kolodkin-Gal](https://github.com/yuvalkolodkingal).**
 
-Nineteen original photographs, curated and edited for the desktop, with four
+Twenty-eight original photographs, curated and edited for the desktop, with four
 matching Hyprland / Omarchy themes. Wildlife, garden light, water, and city
 sunsets. Local color, exposure, and crop adjustments preserve the original scenes.
 
@@ -33,9 +33,10 @@ Clone this repo and open [index.html](index.html) in a browser for the offline
 gallery, theme filters, full-size previews, and downloads. On GitHub, use the
 image folders below or the per-photo links further down.
 
-- [1920×1080 wallpapers](wallpapers/1920x1080): all 19 images, ready for a Full HD display.
-- [Full-resolution masters](wallpapers/master): sixteen 3840×2160 images and two
-  2992×1683 images and one 2048×1152 finished GIMP edit. Nothing is upscaled.
+- [1920×1080 wallpapers](wallpapers/1920x1080): 21 images with enough source detail for Full HD.
+- [Full-resolution masters](wallpapers/master): all 28 images at their exported size,
+  from 1136×639 to 3840×2160. Seven uploaded photos are available at their smaller
+  source-sized crops. Nothing is upscaled.
 - [Editing notes](docs/EDITING.md) and [reproducible recipes](metadata/recipes.json).
 
 ```sh
@@ -48,10 +49,10 @@ xdg-open index.html
 
 | Theme | Palette | Photographs |
 | --- | --- | --- |
-| **Canopy** | Forest, leaf green, warm gold | Butterfly, parakeet, flowers, hoopoe, canopy, garden chairs, sleeping cat |
-| **Lagoon** | Deep teal, sage, lavender | Pond flowers, egret, duck, open sky, feather texture |
-| **Ember** | Warm charcoal, amber, coral | Amber skyline, city afterglow, ember clouds and city silhouette |
-| **Dusk** | Deep plum, rose, lavender | Magenta flowers, bottlebrush, pink berry, rose city |
+| **Canopy** | Forest, leaf green, warm gold | Butterfly, parakeet, flowers, hoopoe, canopy, garden chairs, sleeping cat, snail shells, lichen |
+| **Lagoon** | Deep teal, sage, lavender | Pond flowers, egret, duck, open sky, feather texture, jellyfish, moray eel |
+| **Ember** | Warm charcoal, amber, coral | Amber skyline, city afterglow, ember clouds and city silhouette, stone architecture, night shore, sand, seedpod |
+| **Dusk** | Deep plum, rose, lavender | Magenta flowers, bottlebrush, pink berry, rose city, lavender |
 
 Theme setup and installer instructions are in [docs/THEMES.md](docs/THEMES.md).
 Themes include current Hyprland Lua configs and legacy Hyprlang snippets. The theme directories include matching
@@ -100,6 +101,15 @@ only when you want to switch it; use the documented installer first.
 | [Bottlebrush](previews/bottlebrush.jpg) | Dusk | [1920×1080](wallpapers/1920x1080/bottlebrush.jpg) | [3840×2160](wallpapers/master/bottlebrush.jpg) |
 | [Pink Berry](previews/pink-berry.jpg) | Dusk | [1920×1080](wallpapers/1920x1080/pink-berry.jpg) | [2992×1683](wallpapers/master/pink-berry.jpg) |
 | [Rose City](previews/rose-city.jpg) | Dusk | [1920×1080](wallpapers/1920x1080/rose-city.jpg) | [3840×2160](wallpapers/master/rose-city.jpg) |
+| [Stone and Branches](previews/stone-and-branches.jpg) | Ember | — (source-sized master) | [1264×711](wallpapers/master/stone-and-branches.jpg) |
+| [Jellyfish Drift](previews/jellyfish-drift.jpg) | Lagoon | [1920×1080](wallpapers/1920x1080/jellyfish-drift.jpg) | [2032×1143](wallpapers/master/jellyfish-drift.jpg) |
+| [Night Shore](previews/night-shore.jpg) | Ember | [1920×1080](wallpapers/1920x1080/night-shore.jpg) | [2048×1152](wallpapers/master/night-shore.jpg) |
+| [Summer Spirals](previews/summer-spirals.jpg) | Canopy | — (source-sized master) | [1600×900](wallpapers/master/summer-spirals.jpg) |
+| [Moray in Shelter](previews/moray-in-shelter.jpg) | Lagoon | — (source-sized master) | [1136×639](wallpapers/master/moray-in-shelter.jpg) |
+| [Sand and Sky](previews/sand-and-sky.jpg) | Ember | — (source-sized master) | [1584×891](wallpapers/master/sand-and-sky.jpg) |
+| [Golden Lichen](previews/golden-lichen.jpg) | Canopy | — (source-sized master) | [1584×891](wallpapers/master/golden-lichen.jpg) |
+| [Seedpod Still Life](previews/seedpod-still-life.jpg) | Ember | — (source-sized master) | [1584×891](wallpapers/master/seedpod-still-life.jpg) |
+| [Lavender Light](previews/lavender-light.jpg) | Dusk | — (source-sized master) | [1584×891](wallpapers/master/lavender-light.jpg) |
 
 ## Reproducibility
 

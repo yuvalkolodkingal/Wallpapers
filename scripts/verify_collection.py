@@ -114,7 +114,7 @@ def main():
             require(photo['photographer'] == AUTHOR, 'Incorrect collection photo credit')
             source = recipe['source']
             require(re.fullmatch(r'[0-9a-f]{64}', source['sha256']), 'Invalid source checksum')
-            require(source['collection'] in {'pictures', 'ventoy', 'edited'}, 'Unknown source collection')
+            require(source['collection'] in {'pictures', 'ventoy', 'edited', 'uploads'}, 'Unknown source collection')
             preserve_edit = recipe.get('processing') == PRESERVE_EDITED_JPEG
             require(source['collection'] != 'edited' or preserve_edit,
                     'Edited sources must use the preservation processing mode')
@@ -134,16 +134,21 @@ def main():
             require(master_size == (min(3840, crop[0]), min(2160, crop[1])),
                     'Master dimensions do not match the recorded crop/export size')
             paths = {'master': f'wallpapers/master/{slug}.jpg',
-                     'fullhd': f'wallpapers/1920x1080/{slug}.jpg',
                      'preview': f'previews/{slug}.jpg'}
+            fullhd_available = master_size[0] >= 1920 and master_size[1] >= 1080
+            if fullhd_available:
+                paths['fullhd'] = f'wallpapers/1920x1080/{slug}.jpg'
+            else:
+                require(photo['fullhd'] is None, 'Smaller sources must not advertise a Full HD export')
+                require(not preserve_edit, 'Preserved edited masters must be at least Full HD')
+            require(master_size[0] >= 640 and master_size[1] >= 360,
+                    'Master is smaller than the preview')
             sizes = {'master': master_size, 'fullhd': (1920, 1080), 'preview': (640, 360)}
             for kind, expected_path in paths.items():
                 require(photo[kind] == expected_path, f'Unexpected {kind} path')
                 path = repo_path(photo[kind])
                 expected_files.add(path)
                 check_image(path, sizes[kind], crop, profile, preserve_edit)
-            require(master_size[0] >= 1920 and master_size[1] >= 1080,
-                    'Master is smaller than Full HD')
             require(sha256(repo_path(photo['master'])) == photo['sha256'], 'Master checksum mismatch')
             if source['collection'] == 'edited':
                 require(source['sha256'] == photo['sha256'], 'Finished source master was changed')
@@ -170,12 +175,12 @@ def main():
             require((theme / 'hyprland.lua').is_file(), 'hyprland.lua is missing')
             backgrounds = list((theme / 'backgrounds').iterdir())
             require(bool(backgrounds), 'No theme backgrounds')
-            expected_backgrounds = {repo_path(p['fullhd']) for p in photos if p['theme'] == name}
+            expected_backgrounds = {repo_path(p['fullhd'] or p['master']) for p in photos if p['theme'] == name}
             require(len(backgrounds) == len(expected_backgrounds), 'Incorrect background count')
             for path in backgrounds:
                 require(path.is_symlink() and path.is_file(), f'Missing or broken background link: {path.name}')
             require({p.resolve() for p in backgrounds} == expected_backgrounds,
-                    'Background links do not exactly match this theme’s Full HD photos')
+                    'Background links do not exactly match this theme’s available wallpaper exports')
             theme_count += 1
         except (OSError, ValueError, TypeError, tomllib.TOMLDecodeError) as error:
             errors.append(f'theme {name}: {error}')

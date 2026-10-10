@@ -58,7 +58,10 @@ Open **PowerShell** and run:
 
 This uses Windows PowerShell 5.1+ or PowerShell 7; Python and Git are not needed.
 The default location is your Windows Pictures folder, under `Yuval Wallpapers`.
-It contains `1920x1080` images, copyright credit, and installation notes.
+It contains `1920x1080` images, smaller source-sized images in `native`,
+copyright credit, and installation notes. The default Unix wallpaper-only install
+uses the same two folders. Nothing is upscaled; choose `master` for every selected
+photo in a single folder.
 
 To select one set, full-resolution masters, and a different destination:
 
@@ -130,6 +133,6 @@ python3 -m unittest discover -s tests -v
 uv run scripts/verify_collection.py
 ```
 
-The Windows script targets PowerShell 5.1-compatible syntax. Its parser and
-installation behavior are exercised with PowerShell 7 on Linux using disposable
-folders; native Windows and macOS desktop integration has not been tested here.
+The Windows script targets PowerShell 5.1-compatible syntax. Earlier parser and installation checks used PowerShell 7 on Linux with disposable
+folders. The smaller-source fallback was reviewed statically in an environment
+without PowerShell; native Windows and macOS desktop integration remains untested.

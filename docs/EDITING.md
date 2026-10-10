@@ -29,12 +29,20 @@ invented RAW recipe is recorded. Its finished edit is preserved byte for byte,
 including the existing artist/copyright/GIMP credit and reviewed sRGB profile;
 only its 1920×1080 and 640×360 derivatives are downsampled locally.
 
+Nine more supplied JPEGs were added in October 2026: Stone and Branches,
+Jellyfish Drift, Night Shore, Summer Spirals, Moray in Shelter, Sand and Sky,
+Golden Lichen, Seedpod Still Life, and Lavender Light. These are the supplied
+WhatsApp-sized files, not unprovided full-resolution camera originals. Their
+actual byte hashes and dimensions are recorded under `uploads`. The supplied
+lion photo was excluded at the photographer's request.
+
 ## Processing
 
 `metadata/recipes.json` records the original relative filename, SHA-256 checksum,
 auto-oriented pixel crop, and every adjustment. Source paths in this public repo
 are relative to their input roots; the complete local inventory stays private.
 Camera inputs use `pictures` or `ventoy`; completed JPEG edits use `edited`.
+The newly supplied originals use `uploads`, resolved by `--uploads-root`.
 
 The renderer converts embedded color profiles to sRGB, applies exposure and
 white-balance gains in linear light, uses smooth luminance masks for shadows and
@@ -52,9 +60,13 @@ and Rose City receive no output sharpening. Every export is exactly 16:9.
 - **Wildlife and foliage:** restrained shadow lifts, highlight compression, and
   color adjustments preserve feather, leaf, and petal detail.
 
-All wallpapers have a 1920×1080 version. Sixteen have 3840×2160 masters. The two
-square-source crops, Last Amber and Pink Berry, have 2992×1683 masters. Nothing is
-upscaled. Ember Clouds, City Silhouette retains its 2048×1152 finished master.
+Twenty-one wallpapers have a 1920×1080 version. Sixteen have 3840×2160 masters.
+The two square-source crops, Last Amber and Pink Berry, have 2992×1683 masters.
+Ember Clouds, City Silhouette retains its 2048×1152 finished master. Jellyfish
+Drift and Night Shore have 2032×1143 and 2048×1152 masters. The other seven new
+photos retain crops between 1136×639 and 1600×900; `fullhd` is `null` for these
+entries. Gallery downloads and theme backgrounds use their masters. Nothing
+is upscaled, including the 640×360 previews.
 The original photographs' optical softness and clipped highlights
 cannot be reconstructed by these adjustments.
 
@@ -79,7 +91,8 @@ python3 scripts/build_gallery.py
 
 Edit a recipe's values and rerender just that wallpaper with `--only SLUG`.
 The crop is `[left, top, right, bottom]` in auto-oriented source pixels. Keep it
-exactly 16:9, inside the source boundaries, and at least 1920×1080. The renderer
+exactly 16:9, inside the source boundaries, and at least 640×360 for a preview.
+Ordinary photos smaller than 1920×1080 produce a master and preview only. The renderer
 checks source hashes so an unexpected input file does not silently replace the
 original. To deliberately adopt a replacement input, update its source checksum,
 source dimensions, and crop in the recipe first.
@@ -114,9 +127,9 @@ uv run scripts/preserve_edited_jpeg.py \
 ```
 
 `--fullhd` and `--preview` are optional, but a requested derivative must fit
-inside the input dimensions. The existing collection renderer still requires a
-genuine 1920×1080 derivative; a smaller source fails before any exports are
-written. The JPEG must already be RGB, exactly 16:9, no larger than 3840×2160,
+inside the input dimensions. This specialized completed-edit preservation mode still requires a
+genuine 1920×1080 derivative; a smaller finished edit fails before any exports
+are written. Ordinary uploaded photographs support smaller masters. The JPEG must already be RGB, exactly 16:9, no larger than 3840×2160,
 and oriented without a nontrivial EXIF Orientation tag. Only baseline and
 progressive JPEG coding are supported. Downsampled derivatives use Lanczos and
 fresh JPEG encoding; only the master preserves the original coding bytes.
@@ -155,3 +168,23 @@ metadata-removal counts. Its output paths are restricted to repository export
 directories, and source photographs must remain untouched. Adding a preserved
 edit to the collection also requires explicit verifier support for its reviewed
 ICC; this utility alone does not relax the existing collection's ICC rules.
+
+### Reproduce the uploaded photographs
+
+Keep the original uploaded JPEG filenames in a local source directory. For example:
+
+```sh
+uv run scripts/render_wallpapers.py \
+  --pictures-root unused --ventoy-root unused \
+  --uploads-root /path/to/uploaded-photos --only stone-and-branches jellyfish-drift \
+  night-shore summer-spirals moray-in-shelter sand-and-sky golden-lichen \
+  seedpod-still-life lavender-light
+uv run scripts/build_overview.py
+uv run scripts/build_gallery.py
+uv run scripts/verify_collection.py
+```
+
+These edits use small exposure, contrast, white-balance, saturation, shadow and
+highlight adjustments plus mild sharpening. The portrait moray image is cropped
+around the eye and mouth for the collection's desktop format. Night Shore keeps
+its original diagonal composition and dark sky. No objects were added or removed.

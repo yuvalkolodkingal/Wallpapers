@@ -71,10 +71,13 @@ def main():
     parser.add_argument('--ventoy-root', type=Path, required=True)
     parser.add_argument('--edited-root', type=Path,
                         help='Finished edited JPEGs; defaults to the published masters for exact-copy recovery')
+    parser.add_argument('--uploads-root', type=Path,
+                        help='Original uploaded photographs; required when rendering an uploads recipe')
     parser.add_argument('--only', nargs='*', help='Render only these slugs; collection metadata still includes all existing exports.')
     args = parser.parse_args()
     roots = {'pictures': args.pictures_root, 'ventoy': args.ventoy_root,
-             'edited': args.edited_root or ROOT / 'wallpapers/master'}
+             'edited': args.edited_root or ROOT / 'wallpapers/master',
+             'uploads': args.uploads_root}
     recipes = json.loads((ROOT / 'metadata/recipes.json').read_text())
     if args.only is not None:
         unknown = set(args.only) - {r['slug'] for r in recipes['wallpapers']}
@@ -84,11 +87,17 @@ def main():
     for r in recipes['wallpapers']:
         slug = r['slug']
         source = r['source']
-        src = roots[source['collection']] / source['file']
         master = ROOT / f'wallpapers/master/{slug}.jpg'
         hd = ROOT / f'wallpapers/1920x1080/{slug}.jpg'
         preview = ROOT / f'previews/{slug}.jpg'
         if args.only is None or slug in args.only:
+            source_root = roots.get(source['collection'])
+            if source_root is None:
+                parser.error(f"Source root not supplied for {source['collection']}: {slug}")
+            relative = Path(source['file'])
+            if relative.is_absolute() or '..' in relative.parts:
+                raise SystemExit(f'Unsafe source-relative path: {slug}')
+            src = source_root / relative
             sha = hashlib.sha256(src.read_bytes()).hexdigest()
             if sha != source['sha256']:
                 raise SystemExit(f'Source checksum changed: {source["file"]}')
@@ -114,6 +123,8 @@ def main():
                 raise SystemExit(f'Unknown processing mode: {r["processing"]}')
             else:
                 im = load_srgb(src)
+                if im.size != (source['width'], source['height']):
+                    raise SystemExit(f'Source dimensions do not match its recipe: {slug}')
                 box = r['crop_px']
                 if not (0 <= box[0] < box[2] <= im.width and 0 <= box[1] < box[3] <= im.height):
                     raise SystemExit(f'Invalid crop: {slug}')
@@ -122,14 +133,20 @@ def main():
                     raise SystemExit(f'Crop is not exactly 16:9: {slug}')
                 im = grade(im, r['adjustments'])
                 size = (min(3840, im.width), min(2160, im.height))
-                if size[0] < 1920 or size[1] < 1080:
-                    raise SystemExit(f'Selected source is too small: {slug}')
+                if size[0] < 640 or size[1] < 360:
+                    raise SystemExit(f'Selected source is too small for a 640x360 preview: {slug}')
                 master_im = im.resize(size, Image.Resampling.LANCZOS)
                 sharp = r['adjustments'].get('sharpen_percent', 25)
                 export_jpeg(master_im, master, 94, sharp)
-                export_jpeg(master_im.resize((1920,1080), Image.Resampling.LANCZOS), hd, 93, sharp)
+                fullhd_available = size[0] >= 1920 and size[1] >= 1080
+                if fullhd_available:
+                    export_jpeg(master_im.resize((1920,1080), Image.Resampling.LANCZOS), hd, 93, sharp)
+                else:
+                    # A rerender must not retain a stale, now-upscaled derivative.
+                    hd.unlink(missing_ok=True)
                 export_jpeg(master_im.resize((640,360), Image.Resampling.LANCZOS), preview, 86, 10)
-                print(f'{slug}: {size[0]}x{size[1]} + 1920x1080', flush=True)
+                variant = ' + 1920x1080' if fullhd_available else ' (source-sized; no upscaling)'
+                print(f'{slug}: {size[0]}x{size[1]}{variant}', flush=True)
         if not master.exists():
             continue
         with Image.open(master) as im:
@@ -137,7 +154,8 @@ def main():
         entries.append({**{k:r[k] for k in ['slug','title','theme','description']},
                         **({'featured': r['featured']} if 'featured' in r else {}),
                         'source': source, 'master': str(master.relative_to(ROOT)),
-                        'fullhd': str(hd.relative_to(ROOT)), 'preview':str(preview.relative_to(ROOT)),
+                        'fullhd': str(hd.relative_to(ROOT)) if w >= 1920 and h >= 1080 else None,
+                        'preview':str(preview.relative_to(ROOT)),
                         'width':w, 'height':h, 'sha256':hashlib.sha256(master.read_bytes()).hexdigest(),
                         'photographer': AUTHOR})
     (ROOT / 'metadata/collection.json').write_text(json.dumps({'author':AUTHOR,'aspect_ratio':'16:9','wallpapers':entries},indent=2)+'\n')

@@ -124,13 +124,20 @@ def install_wallpapers(names: list[str], destination: Path, dry_run: bool, resol
     manifest = json.loads((ROOT / 'metadata/collection.json').read_text())
     key = 'master' if resolution == 'master' else 'fullhd'
     files = {Path('COPYRIGHT'): ROOT / 'COPYRIGHT'}
+    native_count = 0
     for photo in manifest['wallpapers']:
         if photo['theme'] not in names:
             continue
-        source = (ROOT / photo[key]).resolve(strict=True)
+        source_path = photo[key]
+        folder = resolution
+        if key == 'fullhd' and source_path is None:
+            source_path = photo['master']
+            folder = 'native'
+            native_count += 1
+        source = (ROOT / source_path).resolve(strict=True)
         if not source.is_relative_to(ROOT / 'wallpapers') or not source.is_file():
-            raise ValueError(f'Invalid wallpaper path: {photo[key]}')
-        files[Path(resolution) / source.name] = source
+            raise ValueError(f'Invalid wallpaper path: {source_path}')
+        files[Path(folder) / source.name] = source
     plans = []
     for relative, source in files.items():
         target = destination / relative
@@ -147,6 +154,8 @@ def install_wallpapers(names: list[str], destination: Path, dry_run: bool, resol
         else:
             plans.append((source, target))
     print(f'{"Would install" if dry_run else "Installing"}: {len(files)-1} wallpapers ({resolution}) -> {destination}')
+    if native_count:
+        print(f'{native_count} smaller sources go in native/ at their exported size; no upscaling.')
     if dry_run:
         return
     for source, target in plans:
@@ -187,7 +196,7 @@ def main() -> int:
     install_parser.add_argument('--target', choices=['omarchy', 'hyprland', 'wallpapers'], default='omarchy')
     install_parser.add_argument('--dest', type=Path, help='Override the destination directory')
     install_parser.add_argument('--resolution', choices=['1920x1080', 'master'], default='1920x1080',
-                                help='Wallpaper-only export size; theme backgrounds use 1920x1080')
+                                help='Wallpaper-only export size; smaller sources use native/. Themes use Full HD or source-sized masters.')
     install_parser.add_argument('--dry-run', action='store_true')
     apply_parser = sub.add_parser('apply', help='Explicitly switch the running desktop to one installed theme')
     apply_parser.add_argument('theme', choices=theme_names())

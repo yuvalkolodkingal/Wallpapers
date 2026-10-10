@@ -620,6 +620,303 @@
         "saturation": 0.91
       },
       "based_on_existing_edit": true
+    },
+    {
+      "slug": "stone-and-branches",
+      "title": "Stone and Branches",
+      "theme": "ember",
+      "description": "Pale stone architecture and a slate roof seen through winter branches.",
+      "source": {
+        "collection": "uploads",
+        "file": "IMG-20240315-WA0002.jpg",
+        "sha256": "10efe7a27ffa4944bf98f93934d0d479ef462be54eb364aca9aa5e02e74f7892",
+        "width": 1536,
+        "height": 717
+      },
+      "crop_px": [
+        136,
+        3,
+        1400,
+        714
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1.015,
+          1,
+          0.99
+        ],
+        "sharpen_percent": 18,
+        "exposure_ev": 0.06,
+        "shadow_lift": 0.16,
+        "highlight_compression": 0.16,
+        "contrast": 0.16,
+        "saturation": 1.04
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "jellyfish-drift",
+      "title": "Jellyfish Drift",
+      "theme": "lagoon",
+      "description": "Translucent jellyfish drifting through turquoise aquarium light.",
+      "source": {
+        "collection": "uploads",
+        "file": "IMG-20240315-WA0033.jpg",
+        "sha256": "1be19a40ec47eb11becd153fdbdfe3a8e0d560bca700642fdd3239df2f8dbe32",
+        "width": 2040,
+        "height": 1148
+      },
+      "crop_px": [
+        4,
+        2,
+        2036,
+        1145
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1.06,
+          0.98,
+          1.03
+        ],
+        "sharpen_percent": 12,
+        "exposure_ev": -0.04,
+        "shadow_lift": 0.06,
+        "highlight_compression": 0.3,
+        "contrast": 0.18,
+        "saturation": 0.94
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "night-shore",
+      "title": "Night Shore",
+      "theme": "ember",
+      "description": "Warm city lights reflected on dark water beyond a sandy shore.",
+      "source": {
+        "collection": "uploads",
+        "file": "IMG-20260226-WA0007.jpg",
+        "sha256": "4df5f31618cad4ea110c07464a5d82f8b024e08260e4eaa79ae87a3f8089108c",
+        "width": 2048,
+        "height": 1536
+      },
+      "crop_px": [
+        0,
+        130,
+        2048,
+        1282
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 10,
+        "exposure_ev": 0.03,
+        "shadow_lift": 0.1,
+        "highlight_compression": 0.4,
+        "contrast": 0.08,
+        "saturation": 0.95
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "summer-spirals",
+      "title": "Summer Spirals",
+      "theme": "canopy",
+      "description": "Small pale snail shells clustered on dry stems in summer light.",
+      "source": {
+        "collection": "uploads",
+        "file": "IMG-20260814-WA0005.jpg",
+        "sha256": "e99f7a61b0b6851059711f179132d998314569277ed490612b40554da8f86302",
+        "width": 1600,
+        "height": 1204
+      },
+      "crop_px": [
+        0,
+        152,
+        1600,
+        1052
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 15,
+        "exposure_ev": 0.04,
+        "shadow_lift": 0.12,
+        "highlight_compression": 0.22,
+        "contrast": 0.14,
+        "saturation": 1.04
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "moray-in-shelter",
+      "title": "Moray in Shelter",
+      "theme": "lagoon",
+      "description": "A close view of a moray eel framed by a weathered aquarium shelter.",
+      "source": {
+        "collection": "uploads",
+        "file": "IMG-20240315-WA0027.jpg",
+        "sha256": "742521f0d1881521d0a008c54cb9c33bce088502335e23dbcb0c8362b0acfc9b",
+        "width": 1148,
+        "height": 2040
+      },
+      "crop_px": [
+        6,
+        880,
+        1142,
+        1519
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 18,
+        "exposure_ev": -0.04,
+        "shadow_lift": 0.14,
+        "highlight_compression": 0.2,
+        "contrast": 0.18,
+        "saturation": 0.96
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "sand-and-sky",
+      "title": "Sand and Sky",
+      "theme": "ember",
+      "description": "A low view of sunlit sand and dry stems beneath a blue sky.",
+      "source": {
+        "collection": "uploads",
+        "file": "IMG-20250426-WA0017.jpg",
+        "sha256": "77c07e3511e22b52d56e331fa688c8608cdfd4a5a06d4e49d3fd2cb401386008",
+        "width": 1600,
+        "height": 899
+      },
+      "crop_px": [
+        8,
+        4,
+        1592,
+        895
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 18,
+        "exposure_ev": 0,
+        "shadow_lift": 0.18,
+        "highlight_compression": 0.28,
+        "contrast": 0.15,
+        "saturation": 1.03
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "golden-lichen",
+      "title": "Golden Lichen",
+      "theme": "canopy",
+      "description": "Tiny golden lichen cups on deeply textured weathered wood.",
+      "source": {
+        "collection": "uploads",
+        "file": "IMG-20250426-WA0015.jpg",
+        "sha256": "65faef193e5a3c89453b32b4016e2b05f48957a5e5a82c1f8cd9248a47dc1285",
+        "width": 1600,
+        "height": 899
+      },
+      "crop_px": [
+        8,
+        4,
+        1592,
+        895
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 18,
+        "exposure_ev": -0.06,
+        "shadow_lift": 0.12,
+        "highlight_compression": 0.3,
+        "contrast": 0.18,
+        "saturation": 1.05
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "seedpod-still-life",
+      "title": "Seedpod Still Life",
+      "theme": "ember",
+      "description": "A dry seedpod resting among fine twigs and sunlit grains of sand.",
+      "source": {
+        "collection": "uploads",
+        "file": "IMG-20250426-WA0013.jpg",
+        "sha256": "33c3cb7b4c4bfd86c710af2c0748483f51b10c8056f3b6a602973f80076bf872",
+        "width": 1600,
+        "height": 899
+      },
+      "crop_px": [
+        8,
+        4,
+        1592,
+        895
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 18,
+        "exposure_ev": -0.03,
+        "shadow_lift": 0.16,
+        "highlight_compression": 0.28,
+        "contrast": 0.14,
+        "saturation": 0.99
+      },
+      "based_on_existing_edit": false
+    },
+    {
+      "slug": "lavender-light",
+      "title": "Lavender Light",
+      "theme": "dusk",
+      "description": "Violet lavender flowers in soft garden light.",
+      "source": {
+        "collection": "uploads",
+        "file": "IMG-20250503-WA0031.jpg",
+        "sha256": "e4c1e1fa88ee3969e987c1757749dd9619c0de3cacc7bd8f90397285946a7bb5",
+        "width": 1600,
+        "height": 899
+      },
+      "crop_px": [
+        8,
+        4,
+        1592,
+        895
+      ],
+      "adjustments": {
+        "white_balance_rgb": [
+          1,
+          1,
+          1
+        ],
+        "sharpen_percent": 15,
+        "exposure_ev": -0.02,
+        "shadow_lift": 0.15,
+        "highlight_compression": 0.25,
+        "contrast": 0.14,
+        "saturation": 1.03
+      },
+      "based_on_existing_edit": false
     }
   ]
 }

@@ -154,14 +154,20 @@ SCRIPT = r"""
     currentSlug = slug;
     imageError.hidden = true;
     picture.alt = card.querySelector('img').alt;
-    picture.src = card.querySelector('[data-fullhd]').getAttribute('href');
+    picture.src = (card.querySelector('[data-fullhd]') || card.querySelector('[data-master]')).getAttribute('href');
     document.getElementById('viewer-title').textContent = card.querySelector('h3').textContent;
     document.getElementById('viewer-description').textContent = card.querySelector('.description').textContent;
     ['master','fullhd'].forEach(kind => {
       const original = card.querySelector(`[data-${kind}]`);
       const link = document.getElementById(`viewer-${kind}`);
-      link.href = original.getAttribute('href');
-      link.download = original.getAttribute('download');
+      link.hidden = !original;
+      if (original) {
+        link.href = original.getAttribute('href');
+        link.download = original.getAttribute('download');
+      } else {
+        link.removeAttribute('href');
+        link.removeAttribute('download');
+      }
     });
   };
   document.querySelectorAll('[data-open]').forEach(link => link.addEventListener('click', event => {
@@ -235,7 +241,7 @@ def photo_link(photo: dict, *, eager: bool = False) -> str:
     slug = escape(photo["slug"])
     loading = 'loading="eager" fetchpriority="high"' if eager else 'loading="lazy"'
     return (
-        f'<a class="photo-link" href="{local_url(photo["fullhd"])}" data-open="{slug}" aria-label="View {title}">'
+        f'<a class="photo-link" href="{local_url(photo["fullhd"] or photo["master"])}" data-open="{slug}" aria-label="View {title}">'
         f'<img src="{local_url(photo["preview"])}" alt="{description}" width="1600" height="900" {loading} decoding="async"></a>'
     )
 
@@ -254,7 +260,8 @@ def build(root: Path) -> str:
         if photo["theme"] not in THEMES:
             raise ValueError(f"Unknown theme: {photo['theme']}")
         for key in ("preview", "master", "fullhd"):
-            local_url(photo[key])
+            if key != "fullhd" or photo[key] is not None:
+                local_url(photo[key])
 
     author = escape(manifest.get("author", AUTHOR))
     first = next((photo for photo in photos if photo.get("featured")), photos[0])
@@ -281,13 +288,15 @@ def build(root: Path) -> str:
         slug = escape(photo["slug"])
         theme = escape(photo["theme"])
         width, height = int(photo["width"]), int(photo["height"])
+        hd_link = (f'<a data-fullhd href="{local_url(photo["fullhd"])}" download="{slug}-1920x1080.jpg">1920 × 1080</a>'
+                   if photo["fullhd"] else '<span class="meta">Source-sized; no upscaling</span>')
         cards.append(
             f'<article class="photo" id="{slug}" data-slug="{slug}" data-theme="{theme}">'
             f'{photo_link(photo)}<div class="photo-info"><h3>{escape(photo["title"])}</h3>'
             f'<span class="meta">{theme.title()} · {width} × {height}</span></div>'
             f'<p class="description">{escape(photo.get("description", ""))}</p>'
             f'<div class="downloads"><a data-master href="{local_url(photo["master"])}" download="{slug}.jpg">Full resolution</a>'
-            f'<a data-fullhd href="{local_url(photo["fullhd"])}" download="{slug}-1920x1080.jpg">1920 × 1080</a></div></article>'
+            f'{hd_link}</div></article>'
         )
     filters = '<button type="button" data-filter="all" aria-pressed="true">All</button>' + "".join(
         f'<button type="button" data-filter="{theme}" aria-pressed="false">{theme.title()}</button>' for theme in THEMES

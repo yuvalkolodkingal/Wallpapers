@@ -14,6 +14,8 @@ class ThemeInstallerTests(unittest.TestCase):
     def setUp(self):
         self.photos = json.loads((ROOT/'metadata/collection.json').read_text())['wallpapers']
         self.ember_count = sum(photo['theme'] == 'ember' for photo in self.photos)
+        self.hd_count = sum(photo['fullhd'] is not None for photo in self.photos)
+        self.ember_hd_count = sum(photo['theme'] == 'ember' and photo['fullhd'] is not None for photo in self.photos)
         self.temp = tempfile.TemporaryDirectory(prefix='wallpaper-install-')
         self.addCleanup(self.temp.cleanup)
         self.directory = Path(self.temp.name)
@@ -60,9 +62,14 @@ class ThemeInstallerTests(unittest.TestCase):
 
     def test_wallpapers_merge_themes_and_sizes(self):
         self.assert_success(self.run_install('ember', 'wallpapers'))
-        self.assertEqual(len(list((self.destination/'1920x1080').glob('*.jpg'))), self.ember_count)
+        self.assertEqual(len(list((self.destination/'1920x1080').glob('*.jpg'))), self.ember_hd_count)
         self.assert_success(self.run_install('all', 'wallpapers'))
-        self.assertEqual(len(list((self.destination/'1920x1080').glob('*.jpg'))), len(self.photos))
+        self.assertEqual(len(list((self.destination/'1920x1080').glob('*.jpg'))), self.hd_count)
+        self.assertEqual(len(list((self.destination/'native').glob('*.jpg'))), len(self.photos) - self.hd_count)
+        for photo in self.photos:
+            if photo['fullhd'] is None:
+                installed = self.destination/'native'/f'{photo["slug"]}.jpg'
+                self.assertEqual(hashlib.sha256(installed.read_bytes()).hexdigest(), photo['sha256'])
         self.assert_success(self.run_install('ember', 'wallpapers', '--resolution', 'master'))
         self.assertEqual(len(list((self.destination/'master').glob('*.jpg'))), self.ember_count)
         self.assert_success(self.run_install('all', 'wallpapers'))
