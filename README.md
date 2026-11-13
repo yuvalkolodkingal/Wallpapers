@@ -1,3 +1,5 @@
+> **This repository has moved.** The photographs now live in **[yuvalkolodkingal/photography](https://github.com/yuvalkolodkingal/photography)**, with a gallery at **https://yuvalkolodkingal.github.io/photography/**. This repository is archived and kept read-only for reference.
+
 # Wallpapers by Yuval Kolodkin-Gal
 
 **All photographs taken by [Yuval Kolodkin-Gal](https://github.com/yuvalkolodkingal).**
